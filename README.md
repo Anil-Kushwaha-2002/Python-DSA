@@ -205,13 +205,6 @@ Once you’re advanced, choose **career-focused** paths.
 
 ---
 
-## 📌 How to Use This Roadmap
-1. Start from **Beginner** and move step-by-step.
-2. Practice each topic with **small projects**.
-3. Explore **Specializations** once you master the **Expert** level.
-
-> 💡 Tip: Keep building **real-world projects** as you learn. Theory + practice = mastery.
-
 
 
 # 📜 Python Roadmap: Beginner → Advanced
@@ -266,10 +259,9 @@ Once you’re advanced, choose **career-focused** paths.
 |                    | Cybersecurity      | socket, cryptography            | `import socket`                       |
 |                    | DevOps             | AWS boto3, Docker SDK           | `import boto3`                        |
 
-
+---
 # 2. 📚 Intermediate Python Topics with Examples
 This section covers **Core Python Skills** you’ll need to work with **collections, functions, and error handling** effectively.
----
 ## 1. Data Structures
 
 ### **Lists** – Ordered, mutable collections.
@@ -285,8 +277,8 @@ print(nums[1:])      # [20, 30]
 This section covers **Core Python Skills** you’ll need to work with **collections, functions, and error handling** effectively.
 
 ## 1. Data Structures
-```
-# **Lists** – Ordered, mutable collections.
+```python
+# Lists – Ordered, mutable collections.
 nums = [10, 20, 30]
 nums.append(40)      # Add element
 nums.pop()           # Remove last
@@ -309,10 +301,9 @@ print(person)        # {'name': 'Alice', 'age': 25, 'city': 'Delhi'}
 data = {"students": [{"name": "Anil", "marks": 90}]}
 print(data["students"][0]["name"])  # Anil
 ```
----
 
 ## 2. Strings (Advanced)
-```
+```python
 # String Methods
 text = "hello world"
 print(text.upper())         # HELLO WORLD
@@ -323,10 +314,9 @@ name = "Anil"
 age = 25
 print(f"My name is {name} and I am {age} years old.")
 ```
----
 
 ## 3. Functions
-```
+```python
 # Defining & Calling Functions
 def greet(name):
     return f"Hello, {name}!"
@@ -360,10 +350,9 @@ def outer():
 outer()
 print(x)  # 20
 ```
----
 
 ## 4. Modules & Packages
-```
+```python
 # Importing
 import math
 from math import sqrt
@@ -377,10 +366,9 @@ print(sqrt(16))  # 4.0
 # import mymodule
 # mymodule.hello()
 ```
----
 
 ## 5. File Handling
-```
+```python
 # Opening, Reading, Writing
 with open("example.txt", "w") as f:
     f.write("Hello File!")
@@ -388,10 +376,9 @@ with open("example.txt", "w") as f:
 with open("example.txt", "r") as f:
     print(f.read())
 ```
----
 
 ## 6. Exception Handling
-```
+```python
 # try, except, else, finally
 try:
     num = int("abc")
@@ -413,7 +400,6 @@ class MyError(Exception):
     pass
 # raise MyError("Something went wrong!")
 ```
----
 
 ## 7. Comprehensions
 ```
