@@ -269,21 +269,29 @@ This section covers **Core Python Skills** you’ll need to work with **collecti
 # Methods: append(), pop(), sort(), etc.
 list = [1, 2, 3]
 
+# Adding elements
 list.append(4)        # Add single element → [1, 2, 3, 4]
 list.extend([5, 6])   # Add multiple elements → [1, 2, 3, 4, 5, 6]
 list.insert(1, 10)    # Insert at index → [1, 10, 2, 3, 4, 5, 6]
+
+# Removing elements
 list.remove(10)       # Remove first occurrence of value
 list.pop(2)           # Remove by index (default last) → returns removed element
 list.clear()          # Remove all elements → []
+
+# Reset list for examples
 list = [1, 2, 3, 4, 5, 6]  # Reset list
 
+# Searching & counting
 print(list.index(4))  # Find index of element → 3
 print(list.count(2))  # Count occurrences → 1
 
+# Sorting & reversing
 list.sort()           # Sort list in ascending order → [1, 2, 3, 4, 5, 6]
 list.sort(reverse=True) # Sort in descending order → [6, 5, 4, 3, 2, 1]
 list.reverse()        # Reverse list → [1, 2, 3, 4, 5, 6]
 
+# Copy & built-ins
 copy_list = list.copy()  # Return shallow copy
 print(len(list))      # Length of list → 6
 print(min(list))      # Minimum value → 1
@@ -296,21 +304,18 @@ print(list[:3])       # First 3 elements → [1, 2, 3]
 print(list[::2])      # Every second element → [1, 3, 5]
 
 # List Comprehensions – Shorter way to create lists
-nums = [x**2 for x in range(5)]            # Squares → [0, 1, 4, 9, 16]
-evens = [x for x in range(10) if x % 2==0] # Even numbers → [0, 2, 4, 6, 8]
-print(nums, evens)
+squares = [x**2 for x in range(5)]            # Squares → [0, 1, 4, 9, 16]
+evens = [x for x in range(10) if x % 2==0]    # Even numbers → [0, 2, 4, 6, 8]
+print(squares, evens)
 
 # 2️⃣. Tuples – Ordered, immutable collections.
 tup = (1, 2, 3, 2)
 
 print(tup.count(2))       # Count occurrences → 2
 print(tup.index(3))       # Find index → 2
-print(len(tup))           # Length → 4
-print(min(tup))           # Minimum → 1
-print(max(tup))           # Maximum → 3
-print(sum(tup))           # Sum → 8
 print(tup[1:3])           # Slice → (2, 3)
 print(tup[0])             # 1
+print(len(tup), min(tup), max(tup), sum(tup)) # 4, 1, 3, 8
 
 # "Tuple comprehensions" don't exist — use generator expressions
 gen = (x**2 for x in range(5)) # Creates generator, not tuple
@@ -328,10 +333,7 @@ s.pop()                   # Remove and return random element
 s.clear()                 # Remove all → set()
 
 s = {1, 2, 3, 4}
-print(len(s))             # Length → 4
-print(min(s))             # Minimum → 1
-print(max(s))             # Maximum → 4
-print(sum(s))             # Sum → 10
+print(len(s), min(s), max(s), sum(s))  # 4, 1, 4, 10
 
 a, b = {1, 2, 3}, {3, 4, 5}
 print(a.union(b))         # Union → {1, 2, 3, 4, 5}
@@ -762,4 +764,238 @@ print(num_types)  # ['even', 'odd', 'even', 'odd', 'even']
 matrix = [[1, 2], [3, 4], [5, 6]]
 flat = [num for row in matrix for num in row]
 print(flat)   # [1, 2, 3, 4, 5, 6]
+```
+---
+---
+# 3. 📚 Advanced – Deep Python
+At this stage, you focus on powerful features and patterns.
+
+## 1. Object-Oriented Programming (OOP)
+```Python
+# Class & Object --> A class is a blueprint; objects are instances created from it.
+class Person:
+    def __init__(self, name, age):     # Constructor
+        self.name = name
+        self.age = age
+
+    def greet(self):                   # Instance method
+        return f"Hello, my name is {self.name}."
+
+p1 = Person("Anil", 25)
+print(p1.greet())  # Hello, my name is Anil.
+
+# Inheritance --> One class (child) can inherit methods/attributes from another (parent).
+class Student(Person):
+    def __init__(self, name, age, grade):
+        super().__init__(name, age)     # Call parent constructor
+        self.grade = grade
+
+    def greet(self):  # Method overriding
+        return f"I am {self.name}, a student in grade {self.grade}."
+
+s1 = Student("Ravi", 20, "A")
+print(s1.greet())    # I am Ravi, a student in grade A.
+
+# Multiple Inheritance --> A class can inherit from more than one parent class.
+class A:
+    def method_a(self): print("Method A")
+class B:
+    def method_b(self): print("Method B")
+class C(A, B): pass
+
+c = C()
+c.method_a()  # Method A
+c.method_b()  # Method B
+
+# Encapsulation --> Restricting access to data using _protected and __private naming.
+class Demo:
+    def __init__(self):
+        self._protected = "Protected"
+        self.__private = "Private"
+
+d = Demo()
+print(d._protected)      # Accessible, but should be treated as protected
+# print(d.__private)     # Error – Name mangling
+print(d._Demo__private)  # Access via mangled name
+
+# Class & Static methods
+# @classmethod works with the class (cls).
+# @staticmethod doesn’t depend on instance/class data.
+
+class MyClass:
+    count = 0
+
+    @classmethod
+    def increment(cls):
+        cls.count += 1
+
+    @staticmethod
+    def hello():
+        print("Hello from static method!")
+
+MyClass.increment()
+print(MyClass.count)  # 1
+MyClass.hello()
+
+# @property --> Allows you to access a method as if it were an attribute.
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+
+    @property
+    def area(self):
+        return 3.14 * self._radius**2
+
+c = Circle(5)
+print(c.area)  # 78.5 (no parentheses)
+
+# Magic/Dunder Methods --> Special methods like __len__, __str__ customize object behavior.
+class MyList:
+    def __init__(self, items):
+        self.items = items
+    def __len__(self):
+        return len(self.items)
+    def __str__(self):
+        return f"MyList({self.items})"
+
+ml = MyList([1, 2, 3])
+print(len(ml))  # 3
+print(ml)       # MyList([1, 2, 3])
+```
+## 2. Iterators & Generators
+```python
+# Iterator --> Object with __iter__() & __next__() that returns values one at a time.
+class Counter:
+    def __init__(self, low, high):
+        self.current = low
+        self.high = high
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self.current > self.high:
+            raise StopIteration
+        val = self.current
+        self.current += 1
+        return val
+
+for num in Counter(1, 3):
+    print(num)   # 1 2 3
+
+# Generator --> Function with yield — returns values lazily, remembers state.
+def count_up_to(n):
+    count = 1
+    while count <= n:
+        yield count
+        count += 1
+
+for num in count_up_to(3):
+    print(num)  # 1 2 3
+
+# Generator expression --> Like list comprehension but with () — more memory efficient.
+gen_exp = (x**2 for x in range(5))
+print(list(gen_exp))  # [0, 1, 4, 9, 16]
+
+```
+ ## 3. Decorators
+ ```python
+ # Function decorator --> A function that modifies another function’s behavior.
+def my_decorator(func):
+    def wrapper():
+        print("Before function")
+        func()
+        print("After function")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")
+say_hello()
+
+# Chaining decorators --> Applying multiple decorators to one function.
+def deco1(func):
+    def wrapper(): 
+        print("deco1 before")
+        func()
+    return wrapper
+
+def deco2(func):
+    def wrapper():
+        print("deco2 before")
+        func()
+    return wrapper
+
+@deco1
+@deco2
+def test():
+    print("Inside function")
+test()
+```
+## 4. Context Managers
+```python
+# Using `with` statement --> Ensures resources (like files) are closed automatically
+with open("file.txt", "w") as f:
+    f.write("Hello Context Manager!")
+
+# Custom context manager --> Define __enter__ and __exit__ to control setup/cleanup.
+class MyContext:
+    def __enter__(self):
+        print("Enter")
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Exit")
+
+with MyContext() as mc:
+    print("Inside block")
+```
+## 5. Functional Programming
+```python
+# map, filter, reduce
+
+from functools import reduce
+nums = [1, 2, 3, 4]
+print(list(map(lambda x: x*2, nums)))       # [2, 4, 6, 8]
+print(list(filter(lambda x: x%2==0, nums))) # [2, 4]
+print(reduce(lambda a, b: a+b, nums))       # 10
+
+
+# Closures --> Inner function remembers variables from outer function.
+def outer(x):
+    def inner(y):
+        return x + y
+    return inner
+
+add5 = outer(5)
+print(add5(10))  # 15
+
+# Partial functions --> Pre-fill some arguments for a function.
+from functools import partial
+def power(base, exponent):
+    return base ** exponent
+
+square = partial(power, exponent=2)
+print(square(5))  # 25
+
+```
+## 6. Error Logging
+```python
+# Use logging to display messages with different severity levels.
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.info("This is an info message")
+logging.warning("This is a warning")
+logging.error("This is an error")
+```
+## 7. Type Hints
+```python
+# Provide expected data types for clarity and error prevention.
+from typing import List, Dict
+
+def greet(name: str) -> str:
+    return f"Hello, {name}"
+
+def total(numbers: List[int]) -> int:
+    return sum(numbers)
+
+def get_user() -> Dict[str, str]:
+    return {"name": "Anil", "city": "Delhi"}
 ```
