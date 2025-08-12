@@ -772,6 +772,20 @@ At this stage, you focus on powerful features and patterns.
 
 ## 1. Object-Oriented Programming (OOP)
 ```Python
+# `__init__` Constructor --> is a special method (a dunder method) in Python classes. It runs automatically when you create an object from a class. It is mainly used to initialize (set) the object’s attributes.
+class Student:
+    def __init__(self, name, roll_no): # Attributes (instance variables)
+        self.name = name
+        self.roll_no = roll_no
+
+# Creating an object calls __init__
+s1 = Student("Ravi", 101)
+s2 = Student("Anil", 102)
+
+print(s1.name, s1.roll_no)  # Ravi 101
+print(s2.name, s2.roll_no)  # Anil 102
+
+
 # Class & Object --> A class is a blueprint; objects are instances created from it.
 class Person:
     def __init__(self, name, age):     # Constructor
@@ -881,7 +895,7 @@ class Counter:
 for num in Counter(1, 3):
     print(num)   # 1 2 3
 
-# Generator --> Function with yield — returns values lazily, remembers state.
+# Generator --> Function with `yield` keyword — returns values lazily, remembers state.
 def count_up_to(n):
     count = 1
     while count <= n:
@@ -906,29 +920,41 @@ def my_decorator(func):
         print("After function")
     return wrapper
 
-@my_decorator
+@my_decorator       # is syntactic sugar for: say_hello = my_decorator(say_hello)
 def say_hello():
     print("Hello!")
 say_hello()
 
-# Chaining decorators --> Applying multiple decorators to one function.
-def deco1(func):
-    def wrapper(): 
-        print("deco1 before")
-        func()
-    return wrapper
+# Output: Before function runs
+#         Hello!
+#         After function runs
 
-def deco2(func):
+
+# Chaining Multiple Decorators --> Applying multiple decorators to one function.
+def uppercase_decorator(func):
     def wrapper():
-        print("deco2 before")
-        func()
+        result = func()
+        return result.upper()
     return wrapper
 
-@deco1
-@deco2
-def test():
-    print("Inside function")
-test()
+def exclamation_decorator(func):
+    def wrapper():
+        result = func()
+        return result + "!!!"
+    return wrapper
+
+@uppercase_decorator
+@exclamation_decorator
+def say_message():
+    return "hello world"
+
+print(say_message())
+
+# Output: HELLO WORLD!!!
+
+#🔹 Order matters:
+First exclamation_decorator runs,
+Then uppercase_decorator.
 ```
 ## 4. Context Managers
 ```python
@@ -936,7 +962,7 @@ test()
 with open("file.txt", "w") as f:
     f.write("Hello Context Manager!")
 
-# Custom context manager --> Define __enter__ and __exit__ to control setup/cleanup.
+# Creating custom context managers (__enter__, __exit__) --> Define __enter__ and __exit__ to control setup/cleanup.
 class MyContext:
     def __enter__(self):
         print("Enter")
@@ -978,7 +1004,7 @@ print(square(5))  # 25
 ```
 ## 6. Error Logging
 ```python
-# Use logging to display messages with different severity levels.
+# `logging` module --> Use logging to display messages with different severity levels.
 import logging
 logging.basicConfig(level=logging.INFO)
 logging.info("This is an info message")
@@ -987,7 +1013,7 @@ logging.error("This is an error")
 ```
 ## 7. Type Hints
 ```python
-# Provide expected data types for clarity and error prevention.
+# `typing` module basics --> Provide expected data types for clarity and error prevention.
 from typing import List, Dict
 
 def greet(name: str) -> str:
